@@ -39,7 +39,9 @@
     "zls": "node scripts/zls.mjs",
     "test:zero": "make -C native/zero-c && npm run build:test --silent && node --test .zero/test-js/*.test.js",
     "test": "npm run conformance && npm run native:test && npm run wasm:runtime:smoke && npm run test:zero && npm run docs:test && npm run zls -- --self-test && npm run agent:demo && npm run test -w zero-lang",
-    "zero": "bin/zero"
+    "zero": "bin/zero",
+    "web:dev": "node scripts/zero-web-dev.mjs",
+    "web:dev:admin": "node scripts/zero-web-dev.mjs examples/admin-dashboard 3000"
   },
   "devDependencies": {
     "@types/node": "^25.7.0",

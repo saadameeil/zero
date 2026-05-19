@@ -1004,6 +1004,10 @@ static const char *std_call_return_type(const Expr *callee) {
   else if (strcmp(name.data, "std.fs.fileLen") == 0) result = "Maybe<usize>";
   else if (strcmp(name.data, "std.fs.fileLenOrRaise") == 0) result = "usize";
   else if (strcmp(name.data, "Response.text") == 0) result = "Response";
+  else if (strcmp(name.data, "Response.html") == 0) result = "Response";
+  else if (strcmp(name.data, "Response.json") == 0) result = "Response";
+  else if (strcmp(name.data, "Response.withStatus") == 0) result = "Response";
+  else if (strcmp(name.data, "Response.redirect") == 0) result = "Response";
   zbuf_free(&name);
   return result;
 }
@@ -1150,6 +1154,10 @@ static int std_call_arg_count(const char *name) {
   if (strcmp(name, "std.fs.fileLen") == 0) return 1;
   if (strcmp(name, "std.fs.fileLenOrRaise") == 0) return 1;
   if (strcmp(name, "Response.text") == 0) return 1;
+  if (strcmp(name, "Response.html") == 0) return 1;
+  if (strcmp(name, "Response.json") == 0) return 1;
+  if (strcmp(name, "Response.withStatus") == 0) return 2;
+  if (strcmp(name, "Response.redirect") == 0) return 1;
   return -1;
 }
 
@@ -1293,6 +1301,10 @@ static const char *std_call_arg_type(const char *name, size_t index) {
   if (strcmp(name, "std.fs.fileLen") == 0) return "mutref<File>";
   if (strcmp(name, "std.fs.fileLenOrRaise") == 0) return "mutref<File>";
   if (strcmp(name, "Response.text") == 0) return "String";
+  if (strcmp(name, "Response.html") == 0) return "String";
+  if (strcmp(name, "Response.json") == 0) return "String";
+  if (strcmp(name, "Response.withStatus") == 0) return index == 0 ? "u32" : "String";
+  if (strcmp(name, "Response.redirect") == 0) return "String";
   return NULL;
 }
 
@@ -4092,7 +4104,7 @@ static bool check_expr_expected(const Program *program, const Expr *expr, Scope 
       if (is_builtin_value(expr->text) && !scope_has(scope, expr->text)) {
         char message[256];
         snprintf(message, sizeof(message), "builtin namespace '%s' cannot be used as a runtime value", expr->text);
-        return set_diag_detail(diag, 3005, message, expr->line, expr->column, "runtime value", "builtin namespace", "use a supported member call such as Response.text(...) or std.fs.host()");
+        return set_diag_detail(diag, 3005, message, expr->line, expr->column, "runtime value", "builtin namespace", "use a supported member call such as Response.text(...), Response.html(...), Response.json(...), Response.withStatus(...), Response.redirect(...), or std.fs.host()");
       }
       {
         const char *actual = scope_type(scope, expr->text);
