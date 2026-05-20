@@ -1,0 +1,6 @@
+{
+  "package": { "name": "admin-dashboard", "version": "0.1.0" },
+  "targets": {
+    "web": { "kind": "web", "runtime": "wasm32-web", "routes": "src/routes" }
+  }
+}

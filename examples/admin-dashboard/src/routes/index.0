@@ -1,0 +1,103 @@
+pub fun GET(req: Request) -> Response {
+    return Response.html("<!DOCTYPE html>
+<html lang=\"ar\" dir=\"rtl\">
+<head>
+  <meta charset=\"UTF-8\">
+  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
+  <title>لوحة الإدارة</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, sans-serif; background: #0f172a; color: #e2e8f0; min-height: 100vh; }
+    header { background: #1e293b; border-bottom: 1px solid #334155; padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; }
+    header h1 { font-size: 1.25rem; font-weight: 700; color: #38bdf8; }
+    .badge { background: #0ea5e9; color: white; font-size: 0.7rem; padding: 0.2rem 0.5rem; border-radius: 9999px; }
+    main { padding: 2rem; max-width: 1200px; margin: 0 auto; }
+    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+    .stat-card { background: #1e293b; border: 1px solid #334155; border-radius: 0.75rem; padding: 1.5rem; }
+    .stat-card .label { font-size: 0.8rem; color: #94a3b8; margin-bottom: 0.5rem; }
+    .stat-card .value { font-size: 2rem; font-weight: 700; color: #f8fafc; }
+    .stat-card .change { font-size: 0.75rem; color: #4ade80; margin-top: 0.25rem; }
+    .section { background: #1e293b; border: 1px solid #334155; border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 1rem; }
+    .section h2 { font-size: 1rem; font-weight: 600; margin-bottom: 1rem; color: #cbd5e1; }
+    table { width: 100%; border-collapse: collapse; }
+    th { text-align: right; padding: 0.75rem; font-size: 0.8rem; color: #64748b; border-bottom: 1px solid #334155; }
+    td { padding: 0.75rem; font-size: 0.875rem; border-bottom: 1px solid #1e293b; }
+    .status { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 9999px; font-size: 0.7rem; font-weight: 600; }
+    .status.published { background: #064e3b; color: #4ade80; }
+    .status.draft { background: #1c1917; color: #a3a3a3; }
+    .actions a { color: #38bdf8; text-decoration: none; margin-left: 0.75rem; font-size: 0.8rem; }
+    .actions a:hover { text-decoration: underline; }
+    nav a { color: #94a3b8; text-decoration: none; margin-right: 1.5rem; font-size: 0.9rem; }
+    nav a.active { color: #38bdf8; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>لوحة الإدارة <span class=\"badge\">Zero</span></h1>
+    <nav>
+      <a href=\"/\" class=\"active\">الرئيسية</a>
+      <a href=\"/articles\">المقالات</a>
+      <a href=\"/api/stats\">الإحصائيات</a>
+    </nav>
+  </header>
+  <main>
+    <div class=\"stats\">
+      <div class=\"stat-card\">
+        <div class=\"label\">إجمالي المقالات</div>
+        <div class=\"value\">48</div>
+        <div class=\"change\">↑ 3 هذا الشهر</div>
+      </div>
+      <div class=\"stat-card\">
+        <div class=\"label\">الزيارات اليوم</div>
+        <div class=\"value\">1,240</div>
+        <div class=\"change\">↑ 12% عن أمس</div>
+      </div>
+      <div class=\"stat-card\">
+        <div class=\"label\">المستخدمون النشطون</div>
+        <div class=\"value\">312</div>
+        <div class=\"change\">↑ 5% هذا الأسبوع</div>
+      </div>
+      <div class=\"stat-card\">
+        <div class=\"label\">المسودات</div>
+        <div class=\"value\">7</div>
+        <div class=\"change\">في انتظار النشر</div>
+      </div>
+    </div>
+
+    <div class=\"section\">
+      <h2>أحدث المقالات</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>العنوان</th>
+            <th>التاريخ</th>
+            <th>الحالة</th>
+            <th>الإجراءات</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>مقدمة إلى لغة Zero</td>
+            <td>2026-05-18</td>
+            <td><span class=\"status published\">منشور</span></td>
+            <td class=\"actions\"><a href=\"/articles/1/edit\">تعديل</a><a href=\"/articles/1\">عرض</a></td>
+          </tr>
+          <tr>
+            <td>بناء واجهات برمجية بـ Zero</td>
+            <td>2026-05-15</td>
+            <td><span class=\"status published\">منشور</span></td>
+            <td class=\"actions\"><a href=\"/articles/2/edit\">تعديل</a><a href=\"/articles/2\">عرض</a></td>
+          </tr>
+          <tr>
+            <td>نظام الأنواع في Zero</td>
+            <td>2026-05-10</td>
+            <td><span class=\"status draft\">مسودة</span></td>
+            <td class=\"actions\"><a href=\"/articles/3/edit\">تعديل</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</body>
+</html>")
+}
